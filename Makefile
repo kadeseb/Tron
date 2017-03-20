@@ -14,7 +14,7 @@ all: build/main.o build/map.o
 build/main.o: src/main.cpp
 	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
-build/map.o: src/Map.cpp
+build/map.o: src/Map.cpp include/Map.h
 	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
 run: all
