@@ -8,7 +8,7 @@ CFLAGS=-W -std=c++11
 LDFLAGS=-Llib -lsfml-graphics -lsfml-window -lsfml-system
 TARGET=tron
 
-all: src/main.o build/map.o
+all: build/main.o build/map.o
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $(TARGET)
 
 build/main.o: src/main.cpp
@@ -22,3 +22,4 @@ run: all
 
 clean:
 	@rm build/*
+	@rm $(TARGET)
