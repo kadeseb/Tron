@@ -21,3 +21,25 @@
 1488470998 source:/home/kadeseb/Documents/Projets/Tron/Tron/src/Joueur.cpp
 	"../include/Joueur.h"
 
+1489971316 source:/home/kadeseb/Documents/Tron/main.cpp
+	<iostream>
+	<SFML/Graphics.hpp>
+	"include/Map.h"
+	"include/Joueur.h"
+
+1489971316 /home/kadeseb/Documents/Tron/include/Map.h
+	<stdio.h>
+	<cstdlib>
+	<iostream>
+	<vector>
+	<SFML/Graphics.hpp>
+
+1489971316 /home/kadeseb/Documents/Tron/include/Joueur.h
+	<SFML/Graphics.hpp>
+
+1489971316 source:/home/kadeseb/Documents/Tron/src/Joueur.cpp
+	"../include/Joueur.h"
+
+1489971316 source:/home/kadeseb/Documents/Tron/src/Map.cpp
+	"../include/Map.h"
+
