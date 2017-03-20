@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1488472401 source:/home/kadeseb/Documents/Projets/Tron/Tron/main.cpp
+	<iostream>
+	<SFML/Graphics.hpp>
+	"include/Map.h"
+	"include/Joueur.h"
+
+1488472027 /home/kadeseb/Documents/Projets/Tron/Tron/include/Map.h
+	<stdio.h>
+	<cstdlib>
+	<iostream>
+	<vector>
+	<SFML/Graphics.hpp>
+
+1488472326 source:/home/kadeseb/Documents/Projets/Tron/Tron/src/Map.cpp
+	"../include/Map.h"
+
+1488470683 /home/kadeseb/Documents/Projets/Tron/Tron/include/Joueur.h
+	<SFML/Graphics.hpp>
+
+1488470998 source:/home/kadeseb/Documents/Projets/Tron/Tron/src/Joueur.cpp
+	"../include/Joueur.h"
+
