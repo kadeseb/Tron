@@ -5,25 +5,63 @@
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include "Player.h"
 using namespace std;
+using namespace sf;
 
 class Map
 {
     public:
-        Map(unsigned int largeur, unsigned int hauteur);
-        void afficher(sf::RenderWindow &app);
-        int getValue(sf::Vector2f position);
-        bool setValue(sf::Vector2f position, int value);
-        sf::Vector2f getTaille();
+		/*
+ 		* Instancie l'objet
+ 		*
+ 		* -?-
+ 		* screenWidth:   Largeur de l'écran
+ 		* screenHeight:  Hauteur de l'écran
+ 		* caseSize:      Taille d'une case
+ 		*/
+		Map(unsigned int screenWidth, unsigned int screenHeight, unsigned int caseSize);
+
+		/*
+		 * Destructeur
+		 */
+		 ~Map();
+
+		/*
+ 	 	* Initialise l'environnement à 0
+ 		*/
+		void initialise();
+
+		/*
+ 		* Affiche la carte
+ 		*
+ 		* -?-
+ 		* app: Fênetre d'affichage
+ 		*/
+		void display(RenderWindow &app);
+
+		/*
+ 		* Actualise la position des joueurs sur la carte
+ 		*/
+		void refresh();
+
+		/* Ajoute une joueur sur la carte
+ 		*
+ 		* -?-
+ 		* player:  Joueur
+ 		*/
+		void addPlayer(Player &player);
+
+		/*
+ 		* Retourne la taille de la carte
+ 		*/
+		Vector2f getSize();
 
     protected:
-        vector <int> bloc;
-        unsigned int largeur;
-        unsigned int hauteur;
-        unsigned int taille_case;
-        sf::Vector2f position_vue;
-
-    private:
+			unsigned int **env;
+			unsigned int width, height;
+			unsigned int caseSize;
+			vector<Player*> players;
 };
 
 #endif // MAP_H

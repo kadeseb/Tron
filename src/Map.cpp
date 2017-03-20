@@ -1,67 +1,88 @@
 #include "../include/Map.h"
 
-Map::Map(unsigned int largeur, unsigned int hauteur)
+Map::Map(unsigned int screenWidth, unsigned int screenHeight, unsigned int caseSize)
 {
-    this->taille_case = 10;
-    this->largeur = largeur / this->taille_case + 1;
-    this->hauteur = hauteur / this->taille_case + 1;
+	this->width = screenWidth / caseSize + 1;
+	this->height = screenWidth / caseSize+ 1;
+	this->caseSize = caseSize;
 
-    for (unsigned int y = 0 ; y < this->hauteur ; y++ ) {
-        for (unsigned int x = 0 ; x < this->largeur ; x++ ) {
-            this->bloc.push_back(0);
-            cout << this->getValue(sf::Vector2f(x, y));
-        }
-        cout << endl;
-    }
+	this->env = new unsigned int*[this->height];
+
+	for (unsigned int y = 0 ; y < this->height ; y++) {
+		this->env[y] = new unsigned int[this->width];
+	}
+
+	this->initialise();
 }
 
-void Map::afficher(sf::RenderWindow &app)
+Map::~Map()
 {
-    sf::Color blanc(255, 255, 255), bleu(0, 0, 255), vert(0, 255, 0), clr;
-    sf::RectangleShape rectangle(sf::Vector2f(10, 10));
+	for (unsigned int y = 0 ; y < this->height ; y++) {
+		delete this->env[y];
+	}
 
-    rectangle.setOutlineThickness(1);
-    rectangle.setOutlineColor(sf::Color(0, 0, 0));
-
-    for (unsigned int y = 0 ; y < this->hauteur ; y++) {
-        for (unsigned int x = 0 ; x < this->largeur ; x++) {
-            switch (this->getValue(sf::Vector2f(x, y))) {
-                case 0:
-                    clr = blanc;
-                    break;
-
-                case 1:
-                    clr = bleu;
-                    break;
-
-                case 2:
-                    clr = vert;
-                    break;
-            }
-
-            rectangle.setFillColor(clr);
-            rectangle.setPosition(x * 10, y * 10);
-            app.draw(rectangle);
-        }
-    }
+	delete this->env;
 }
 
-int Map::getValue(sf::Vector2f position)
+void Map::initialise()
 {
-    return this->bloc[position.x + position.y * this->largeur];
+	unsigned int alt = 0;
+
+	for (unsigned int y = 0 ; y < this->height ; y++ ) {
+		for (unsigned int x = 0 ; x < this->width; x++ ) {
+			this->env[y][x] = alt;
+			alt = ++alt < 3 ? alt : 0;
+		}
+	}
 }
 
-bool Map::setValue(sf::Vector2f position, int value)
+void Map::display(sf::RenderWindow &app)
 {
-    if (position.y < this->hauteur || position.x < this->largeur) {
-        this->bloc[position.x + position.y * this->largeur] = value;
-        return true;
-    } else {
-        return false;
-    }
+	Color red(255, 0, 0), green(0, 255, 0), blue(0, 0, 255), clr;
+	RectangleShape rect(Vector2f(10, 10));
+
+	rect.setOutlineThickness(1);
+	rect.setOutlineColor(Color(0, 0, 0));
+
+	for (unsigned int y = 0 ; y < this->height ; y++) {
+		for (unsigned int x = 0 ; x < this->width ; x++) {
+			switch (this->env[y][x]) {
+				case 0:
+				clr = red;
+				break;
+
+				case 1:
+				clr = green;
+				break;
+
+				case 2:
+				clr = blue;
+				break;
+			}
+
+			rect.setFillColor(clr);
+			rect.setPosition(x * this->caseSize, y * this->caseSize);
+			app.draw(rect);
+		}
+	}
 }
 
-sf::Vector2f Map::getTaille()
+void Map::refresh()
 {
-    return sf::Vector2f(this->largeur, this->hauteur);
+	Vector2f position;
+
+	/*for (unsigned int i = 0 ; i < this->players.size() ; i++) {
+		position = this->players[i]->getPosition();
+		this->env[(int)position.y][(int)position.x] = i;
+	}*/
+}
+
+void Map::addPlayer(Player &player)
+{
+	this->players.push_back(&player);
+}
+
+Vector2f Map::getSize()
+{
+	return Vector2f(this->width, this->height);
 }
